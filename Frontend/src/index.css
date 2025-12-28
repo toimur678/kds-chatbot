@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap');
+
+:root {
+  /* Neo Brutalism Palette */
+  --bg-canvas: #FFF9F0;
+  --bg-card: #FFFFFF;
+  --text-primary: #101010;
+  --accent-primary: #FFD058; /* Mustard Yellow */
+  --accent-secondary: #D4B3FF; /* Lavender */
+  --accent-tertiary: #4ADE80; /* Mint Green */
+  --accent-blue: #60A5FA; /* Electric Blue */
+  
+  --border-color: #101010;
+  --border-width: 3px;
+  
+  --shadow-hard: 4px 4px 0px 0px #101010;
+  --shadow-hard-sm: 2px 2px 0px 0px #101010;
+  
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+  border-left: 2px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-secondary);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
