@@ -54,17 +54,24 @@ function App() {
     setMessages(prev => [...prev, { role: 'assistant', text: '' }])
     
     const chars = text.split('')
+    const chunkSize = 3 // Process 3 characters at a time for faster streaming
     
-    for (let i = 0; i < chars.length; i++) {
-      currentText += chars[i]
-      // Update the last message with the new character
-      setMessages(prev => {
-        const newMessages = [...prev]
-        newMessages[newMessages.length - 1].text = currentText
-        return newMessages
+    for (let i = 0; i < chars.length; i += chunkSize) {
+      // Add chunk of characters at once
+      const chunk = chars.slice(i, Math.min(i + chunkSize, chars.length)).join('')
+      currentText += chunk
+      
+      // Use RAF for smoother updates
+      await new Promise(resolve => {
+        requestAnimationFrame(() => {
+          setMessages(prev => {
+            const newMessages = [...prev]
+            newMessages[newMessages.length - 1].text = currentText
+            return newMessages
+          })
+          setTimeout(resolve, 10) // Reduced from 30ms to 10ms per chunk
+        })
       })
-      // Delay for typing effect (adjust speed here)
-      await new Promise(resolve => setTimeout(resolve, 30))
     }
     
     setIsTyping(false)
@@ -78,7 +85,7 @@ function App() {
     if (lottieRef.current) {
       lottieRef.current.play()
     }
-    
+
     const userQuestion = input.trim()
     const userMessage = { role: 'user', text: userQuestion }
     setMessages((prev) => [...prev, userMessage])
@@ -166,7 +173,7 @@ function App() {
           ))}
           
           <div style={{ marginTop: 'auto', fontSize: '0.8rem', opacity: 0.7 }}>
-            <p>⚠️ Bu asistan sadece bilgilendirme amaçlıdır. Hukuki tavsiye yerine geçmez.</p>
+            <p></p>
           </div>
         </aside>
 
